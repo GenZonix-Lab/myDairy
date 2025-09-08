@@ -1,0 +1,12 @@
+.bg-dark{
+  background-color: black;
+}
+.bg-gray{
+  background-color: rgb(63, 63, 63);
+}
+.bg-light-gray{
+  background-color: rgb(190, 190, 190);
+}
+.bg-white{
+  background-color: rgb(255, 255, 255);
+}
