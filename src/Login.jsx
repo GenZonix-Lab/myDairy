@@ -1,7 +1,7 @@
 import React from 'react'
 import { Authenticator } from '@aws-amplify/ui-react';
 import '@aws-amplify/ui-react/styles.css';
-import Profile from './Profile';
+import Dairy from './Dairy';
 const Login = () => {
   return (
     <>        
@@ -11,7 +11,7 @@ const Login = () => {
                 loginMechanisms={['email']}
             >
                 {({ signOut, user }) => (
-                    <Profile user={user} signOut={signOut}/>
+                    <Dairy user={user} signOut={signOut}/>
                 )}
             </Authenticator>
         </div>

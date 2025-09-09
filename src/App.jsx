@@ -5,16 +5,14 @@ import { Authenticator } from '@aws-amplify/ui-react';
 import '@aws-amplify/ui-react/styles.css';
 import Dairy from './Dairy';
 import Login from './Login';
-import Profile from './Profile';
 
 function App() {
   return (
     <Authenticator.Provider>
       <Router>
         <Routes>
-          <Route path="/" element={<Login/>} />
-          <Route path="/dairy" element={<Dairy/>} />
-          <Route path="/profile" element={<Profile/>} />
+          <Route path="/" element={<Dairy/>} />
+          <Route path="/login" element={<Login/>} />
         </Routes>
       </Router>
     </Authenticator.Provider>
