@@ -19,14 +19,12 @@ const Dairy = ({name, signOut: signOutUser}) => {
   const getToken = async () => {
     try {
       const session = await fetchAuthSession()
-      console.log('Session:', session);
       if (!session.tokens || !session.tokens.idToken) {
         throw new Error('No valid session found')
       }
       return session.tokens.idToken.toString()
     } catch (error) {
       console.error('Token error:', error)
-      //window.location.href = '/'
       throw error
     }
   }

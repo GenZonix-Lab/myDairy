@@ -13,11 +13,10 @@ const Profile = () => {
             try {
                 await getCurrentUser();
                 const attrs = await fetchUserAttributes();
-                console.log('User attributes:', attrs);
                 setAttributes(attrs);
             } catch (err) {
                 console.error('Not authenticated:', err);
-                //navigate('/');
+                navigate('/');
             } finally {
                 setLoading(false);
             }
