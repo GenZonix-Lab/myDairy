@@ -12,7 +12,7 @@ function App() {
       <Router>
         <Routes>
           <Route path="/" element={<Dairy/>} />
-          <Route path="/login" element={<Login/>} />
+          <Route path="/profile" element={<Login/>} />
         </Routes>
       </Router>
     </Authenticator.Provider>

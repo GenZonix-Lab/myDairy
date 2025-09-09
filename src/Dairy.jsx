@@ -115,7 +115,7 @@ const Dairy = () => {
         {isAuthenticated ? (
           <CiLogout size={30} style={{ cursor: 'pointer' }} onClick={() => signOut()} title={`logout ${userName}`}/>
         ) : (
-          <CiLogin size={30} style={{ cursor: 'pointer' }} onClick={() => navigate('/login')} title='Login'/>
+          <CiLogin size={30} style={{ cursor: 'pointer' }} onClick={() => navigate('/profile')} title='Login'/>
         )}
       </div>
 
