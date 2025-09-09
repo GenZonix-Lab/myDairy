@@ -16,7 +16,7 @@ const Profile = () => {
                 setAttributes(attrs);
             } catch (err) {
                 console.error('Not authenticated:', err);
-                navigate('/');
+                //navigate('/');
             } finally {
                 setLoading(false);
             }
