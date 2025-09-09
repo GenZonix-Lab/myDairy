@@ -5,7 +5,7 @@ import { SlCalender } from 'react-icons/sl'
 import { BsEraserFill } from 'react-icons/bs'
 import Calendar from './Calendar'
 
-const Dairy = () => {
+const Dairy = ({name, signOut: signOutUser}) => {
   const [showCalendar, setShowCalendar] = useState(false)
   const api = 'https://xblzcud2vd.execute-api.ap-south-1.amazonaws.com/prod/'
   const today = new Date()
@@ -17,8 +17,18 @@ const Dairy = () => {
   const [diary, setDiary] = useState({})
 
   const getToken = async () => {
-    const session = await fetchAuthSession()
-    return session.tokens.idToken.toString()
+    try {
+      const session = await fetchAuthSession()
+      console.log('Session:', session);
+      if (!session.tokens || !session.tokens.idToken) {
+        throw new Error('No valid session found')
+      }
+      return session.tokens.idToken.toString()
+    } catch (error) {
+      console.error('Token error:', error)
+      //window.location.href = '/'
+      throw error
+    }
   }
 
   const fetchEntries = async () => {
@@ -31,6 +41,7 @@ const Dairy = () => {
       setDiary(data || {})
     } catch (error) {
       console.error('Error fetching entries:', error)
+      // Don't try to fetch if not authenticated
     }
   }
 
@@ -105,25 +116,29 @@ const Dairy = () => {
   return (
     <div className='container-fluid p-0' style={{ minHeight: '100vh', backgroundColor: '#f8f9fa' }}>
       {/* Diary Header */}
-      <div className='d-flex justify-content-between align-items-center py-4 px-4' style={{ backgroundColor: '#8B4513', color: 'white' }}>
-        <SlCalender 
-          size={30} 
-          style={{ cursor: 'pointer' }}
-          onClick={() => setShowCalendar(true)}
-        />
-        <div className='text-center'>
-          <h1 style={{ fontFamily: 'serif', fontSize: '2.5rem', margin: 0 }}>📖 My Personal Diary</h1>
-          <p style={{ fontSize: '1.1rem', margin: '10px 0 0 0' }}>
-            {months[today.getMonth()]} {today.getDate()}, {today.getFullYear()}
-          </p>
+      <header>
+        <div className='d-flex justify-content-between align-items-center py-4 px-4' style={{ backgroundColor: '#8B4513', color: 'white' }}>
+          <SlCalender 
+            size={30} 
+            style={{ cursor: 'pointer' }}
+            onClick={() => setShowCalendar(true)}
+          />
+          <div className='text-center'>
+            <h1 style={{ fontFamily: 'serif', fontSize: '1.3rem', margin: 0 }}>Welcome {name?name:"user"}</h1>
+            <h1 style={{ fontFamily: 'serif', fontSize: '2rem', margin: 0 }}>Digital Diary</h1>
+            <p style={{ fontSize: '1.1rem', margin: '10px 0 0 0' }}>
+              {months[today.getMonth()]} {today.getDate()}, {today.getFullYear()}
+            </p>
+          </div>
+          <div>
+            <CiLogout 
+              size={30} 
+              style={{ cursor: 'pointer' }}
+              onClick={() => signOut()}
+            />
+          </div>
         </div>
-        <CiLogout 
-          size={30} 
-          style={{ cursor: 'pointer' }}
-          onClick={() => signOut()}
-        />
-      </div>
-
+      </header>
       {/* Diary Page */}
       <div className='row justify-content-center p-4'>
         <div className='col-md-8 col-lg-6'>

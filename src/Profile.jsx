@@ -1,4 +1,4 @@
-import { fetchUserAttributes, signOut } from 'aws-amplify/auth';
+import { fetchUserAttributes, signOut, getCurrentUser } from 'aws-amplify/auth';
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 import Dairy from './Dairy';
@@ -9,18 +9,20 @@ const Profile = () => {
     const navigate = useNavigate();
     
     useEffect(() => {
-        const loadAttributes = async () => {
+        const checkAuth = async () => {
             try {
+                await getCurrentUser();
                 const attrs = await fetchUserAttributes();
+                console.log('User attributes:', attrs);
                 setAttributes(attrs);
             } catch (err) {
-                console.error('Failed to fetch attributes:', err);
-                navigate('/');
+                console.error('Not authenticated:', err);
+                //navigate('/');
             } finally {
                 setLoading(false);
             }
         };
-        loadAttributes();
+        checkAuth();
     }, [navigate]);
 
     if (loading) return <div>Loading...</div>;
